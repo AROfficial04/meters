@@ -8,8 +8,8 @@ MONGO_URI = "mongodb+srv://mass:ayamass@nomc.r8hka.mongodb.net/nomc?retryWrites=
 client = MongoClient(MONGO_URI)
 
 # Select the database and collection
-db = client["nomc"]  # Replace with your database name
-collection = db["meters"]  # Replace with your collection name
+db = client["nomc"]
+collection = db["meters"]
 
 @app.route('/meter-check', methods=['GET'])
 def check_meter():
