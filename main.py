@@ -1,14 +1,15 @@
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
-from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
-# MongoDB connection string (update with correct credentials)
+# MongoDB connection string
 MONGO_URI = "mongodb+srv://mass:ayamass@nomc.r8hka.mongodb.net/nomc?retryWrites=true&w=majority"
 client = MongoClient(MONGO_URI)
-db = client["nomc"]  # Database name
-collection = db["meters"]  # Collection name
+
+# Select the database and collection
+db = client["nomc"]  # Replace with your database name
+collection = db["meters"]  # Replace with your collection name
 
 @app.route('/meter-check', methods=['GET'])
 def check_meter():
@@ -18,7 +19,7 @@ def check_meter():
         if not meter_id:
             return jsonify({"success": False, "message": "Meter ID is required"}), 400
 
-        # Find meter data in MongoDB
+        # Query the collection for the MeterId
         meter_data = collection.find_one({"MeterId": meter_id})
 
         if meter_data:
@@ -31,4 +32,4 @@ def check_meter():
         return jsonify({"success": False, "message": f"Error: {str(e)}"}), 500
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
