@@ -31,5 +31,7 @@ def check_meter():
     except Exception as e:
         return jsonify({"success": False, "message": f"Error: {str(e)}"}), 500
 
+# No need for app.run() as Vercel handles the server start
+
 if __name__ == '__main__':
     app.run(debug=True)
